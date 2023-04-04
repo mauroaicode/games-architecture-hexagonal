@@ -7,60 +7,44 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Proyecto con arquitectura Hexagonal
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+La Arquitectura Hexagonal nos permite desarrollar y probar nuestra aplicación de forma aislada al framework, a la base de datos, a los paquetes de terceros y todos esos elementos que están al rededor de nuestra aplicación.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+La idea es separar nuestra aplicación en una nueva estructura de directorios que este por afuera de la que propone Laravel. Las ventajas: no dependemos del framework, podemos migrar a otros frameworks, la idea es que no nos afecte cuando actualizamos a nuevas versiones, aplicación de principios SOLID.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Esta arquitectura cuanta con 3 capas: Infraestructura, Aplicación y Dominio. Cada una de ellas esta más alejada del framework y solo se pueden comunicar con su capa siguiente (nunca la capa de Infraestructura se podrá comunicar con la capa de Dominio directamente).
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<p align="center"><img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*yR4C1B-YfMh5zqpbHzTyag.png" width="400" alt="arquitectura_hexagonal"></p>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Describiendo las 3 capas de la Arquitectura Hexagonal
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+- Infraestructura: La capa de infraestructura es la más cerca al framework y es la encarga de traducir todo lo que esta por afuera de nuestra aplicación (framework, base de datos, API’s, paquetes de terceros, etc.) y lo entrega a la capa de Aplicación.
+- Aplicación: En la capa de aplicación vamos a tener todas las acciones que puede hacer nuestra aplicación.
+- Dominio: La capa de dominio es el núcleo de tu sistema y establece como deben comunicarse las demás capas con ella. Es la única que no tiene acoplamientos de las otras capas.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Sobre esta aplicación
 
-### Premium Partners
+Esta aplicación realiza el crud de una lista de juegos con API’s; utilizamos Arquitectura Hexagonal, buscando desacoplarnos del framework lo más posible. La carpeta src será ahora el core de la aplicación donde está la carpeta Shared que comparta recurso para toda la aplicación, y la carpeta BoundedContext(aquí podemos agregar todas las entidades) donde está la entidad Games. Desde la capa Infraestructura, usamos modelos con eloquent e implementamos Storage y generador de identificador Uuid.
+Se crean interfaces para los controladores, y usos para diferentes funciones buscando aplicar el Patrón Repositorio.
+Puedes ver el [frontend hecho Vue con Nuxt](https://github.com/mauroaicode/games-architecture-hexagonal-frontend)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Iniciar
 
-## Contributing
+```bash
+# Instalar dependencias
+$ composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Llave única de la aplicación
+$ php artisan key:generate
 
-## Code of Conduct
+# generar datos semilla, se crean 3 juegos
+$ php artisan migrate:fresh --seed
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Puedes probar la api usando Postman
+$ php artisan serve
 
-## Security Vulnerabilities
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

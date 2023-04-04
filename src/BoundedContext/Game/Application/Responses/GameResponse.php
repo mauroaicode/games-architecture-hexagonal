@@ -9,7 +9,7 @@ final class GameResponse
     private string $id;
     private string $name;
     private string $description;
-    private string $pathImage;
+    private $pathImage;
     private string $url;
     private bool $state;
 
@@ -48,7 +48,7 @@ final class GameResponse
         return $this->description;
     }
 
-    public function pathImage(): string{
+    public function pathImage(){
         return $this->pathImage;
     }
 

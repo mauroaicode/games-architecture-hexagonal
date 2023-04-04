@@ -5,13 +5,13 @@ namespace Core\BoundedContext\Game\Infrastructure\Persistence\Eloquent;
 use Core\BoundedContext\Game\Domain\{
     Game,
     Games,
-    GameAlreadyExists,
+    ValueObjects\GameId,
     GameRepository as GameRepositoryContract,
-    ValueObjects\GameId
 };
 
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Core\Shared\Infrastructure\Persistence\Eloquent\EloquentException;
 
 final class GameRepository implements GameRepositoryContract
@@ -20,7 +20,7 @@ final class GameRepository implements GameRepositoryContract
 
     public function __construct(GameModel $model)
     {
-        $this->model = $model; //Obtenemos el modelo
+        $this->model = $model; //Obtenemos el modelo el cual tiene funcionalidades de eloquent
     }
     //Para recibir los valores primitivos
     private function toDomain(GameModel $eloquentGameModel): Game
@@ -37,7 +37,7 @@ final class GameRepository implements GameRepositoryContract
     //Listar Juegos
     public function list(): Games
     {
-        $eloquentGame = $this->model->all(); //Con eloquent obtenemos todos los juegos
+        $eloquentGame = $this->model->orderBy('created_at','DESC')->get(); //Con eloquent obtenemos todos los juegos
         $games = $eloquentGame->map(
             function (GameModel $eloquentGame) {
                 return $this->toDomain($eloquentGame); //Pasamos los datos primitivos
@@ -85,7 +85,7 @@ final class GameRepository implements GameRepositoryContract
     {
         $gameModel = $this->model->find($id->value());
         if (null === $gameModel) {
-            return null;
+            throw new ModelNotFoundException('Juego no existe');
         }
         return $this->toDomain($gameModel);
     }
@@ -94,7 +94,7 @@ final class GameRepository implements GameRepositoryContract
     {
         $game = $this->model->find($id->value());
         if (null === $game) {
-            return;
+            throw new ModelNotFoundException('Juego no existe');
         }
         $game->delete();
     }

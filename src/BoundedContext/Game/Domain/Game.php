@@ -19,10 +19,12 @@ class Game
     )
     {
     }
-
-    public static function fromPrimitives(string $id, string $name, string $description, string $pathImage, string $url, bool $state): self
+    /*=============================================
+       Función que recibe por parámetro, todos los datos primitivos
+       para luego pasarlos por los ValueObjects
+    =============================================*/
+    public static function fromPrimitives(string $id, string $name, string $description, $pathImage, string $url, bool $state): self
     {
-
         return new self(
             new GameId($id),
             new GameName($name),

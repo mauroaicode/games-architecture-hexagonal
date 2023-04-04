@@ -2,8 +2,8 @@
 
 namespace Core\Shared\Infrastructure;
 
-use Core\Shared\Domain\UuidGenerator;
 use Ramsey\Uuid\Uuid as RamseyUuid;
+use Core\Shared\Domain\UuidGenerator;
 
 //Generar Uuid String desde la carpeta Shared para todas las entidades
 final class RamseyUuidGenerator implements UuidGenerator {

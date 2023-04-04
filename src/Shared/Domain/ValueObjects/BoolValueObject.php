@@ -11,7 +11,7 @@ abstract class BoolValueObject
     {
         $this->value = $value;
     }
-
+    //Retornamos el valor de bool disponible en el BoundedContext
     public function value(): bool
     {
         return $this->value;

@@ -12,7 +12,7 @@ abstract class StringValueObject
     {
         $this->value = $value;
     }
-
+    //Retornamos el valor de string disponible en el BoundedContext
     public function value(): string
     {
         return $this->value;

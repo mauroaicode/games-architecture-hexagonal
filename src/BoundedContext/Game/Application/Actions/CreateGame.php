@@ -2,7 +2,6 @@
 
 namespace Core\BoundedContext\Game\Application\Actions;
 
-use Core\BoundedContext\Game\Application\Responses\GameResponse;
 use Core\BoundedContext\Game\Domain\Game;
 use Core\BoundedContext\Game\Domain\GameRepository;
 use Core\BoundedContext\Game\Domain\GameAlreadyExists;
@@ -11,6 +10,7 @@ use Core\BoundedContext\Game\Domain\ValueObjects\GameUrl;
 use Core\BoundedContext\Game\Domain\ValueObjects\GameName;
 use Core\BoundedContext\Game\Domain\ValueObjects\GameState;
 use Core\BoundedContext\Game\Domain\ValueObjects\GamePathImage;
+use Core\BoundedContext\Game\Application\Responses\GameResponse;
 use Core\BoundedContext\Game\Domain\ValueObjects\GameDescription;
 
 final class CreateGame
@@ -28,12 +28,6 @@ final class CreateGame
     public function __invoke(string $id, string $name, string $description, string $pathImage, string $url, bool $state): GameResponse
     {
         $id = new GameId($id);
-        $game = $this->repository->find($id);
-
-        if (null !== $game) {
-            throw new GameAlreadyExists();
-        }
-
         $name = new GameName($name);
         $description = new GameDescription($description);
         $pathImage = new GamePathImage($pathImage);

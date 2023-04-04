@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Core\Shared\Domain\StorageImage;
 use Core\Shared\Domain\UuidGenerator;
 use Core\Shared\Infrastructure\RamseyUuidGenerator;
+use Core\Shared\Infrastructure\SaveImageStorage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,10 +17,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //Instanciamos la interface UuidGenerator contra la clase RamseyUuidGenerator
         $this->app->bind(
             UuidGenerator::class,
             RamseyUuidGenerator::class,
         );
+        //Instanciamos la interface StorageImage contra la clase SaveImagenStorage
+        $this->app->bind(
+            StorageImage::class,
+            SaveImageStorage::class,
+        );
+
+
     }
 
     /**

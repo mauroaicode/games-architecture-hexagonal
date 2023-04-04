@@ -2,17 +2,17 @@
 
 namespace Core\BoundedContext\Game\Infrastructure\Persistence\Eloquent;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class GameModel extends Model
 {
     use HasFactory;
 
-    protected $keyType = 'string';
     protected $table = 'games';
     public $incrementing = false;
-    public $timestamps = false;
+    protected $keyType = 'string';
+//    public $timestamps = false;
 
     public function __construct(array $attributes = [])
     {

@@ -5,7 +5,7 @@ namespace Core\BoundedContext\Game\Application\Actions;
 use Core\BoundedContext\Game\Domain\GameRepository;
 use Core\BoundedContext\Game\Application\Responses\GamesResponse;
 
-class ListGames
+final class ListGames
 {
     private GameRepository $repository;
 

@@ -1,10 +1,10 @@
 <?php
 
 namespace Core\BoundedContext\Game\Infrastructure\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rule;
 
 class GameRequest extends FormRequest
 {
@@ -12,6 +12,7 @@ class GameRequest extends FormRequest
     {
         return true;
     }
+    //Validaciones cuando se realicen las peticiones request
     public function rules(): array
     {
         return [
@@ -19,10 +20,9 @@ class GameRequest extends FormRequest
                 "required",
                 "string",
                 "max:255",
-                Rule::unique("games", "name")->ignore(request("game")),
             ],
             "description" => "required|string",
-            "pathImage" => "required|string",
+            "pathImage" => "required",
             "url" => "required|string",
         ];
     }

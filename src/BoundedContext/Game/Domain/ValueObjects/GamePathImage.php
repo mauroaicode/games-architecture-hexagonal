@@ -2,6 +2,6 @@
 
 namespace Core\BoundedContext\Game\Domain\ValueObjects;
 
-use Core\Shared\Domain\ValueObjects\StringValueObject;
+use Core\Shared\Domain\ValueObjects\GenericValueObject;
 
-final class GamePathImage extends StringValueObject {}
+final class GamePathImage extends GenericValueObject {}
