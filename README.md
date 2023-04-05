@@ -21,13 +21,13 @@ Esta arquitectura cuanta con 3 capas: Infraestructura, Aplicación y Dominio. Ca
 ## Describiendo las 3 capas de la Arquitectura Hexagonal
 
 
-- Infraestructura: La capa de infraestructura es la más cerca al framework y es la encarga de traducir todo lo que esta por afuera de nuestra aplicación (framework, base de datos, API’s, paquetes de terceros, etc.) y lo entrega a la capa de Aplicación.
+- Infraestructura: La capa de infraestructura es la más cerca al framework y es la encargada de traducir todo lo que esta por afuera de nuestra aplicación (framework, base de datos, API’s, paquetes de terceros, etc.) y lo entrega a la capa de Aplicación.
 - Aplicación: En la capa de aplicación vamos a tener todas las acciones que puede hacer nuestra aplicación.
-- Dominio: La capa de dominio es el núcleo de tu sistema y establece como deben comunicarse las demás capas con ella. Es la única que no tiene acoplamientos de las otras capas.
+- Dominio: La capa de dominio es el núcleo del sistema y establece como deben comunicarse las demás capas con ella. Es la única que no tiene acoplamientos de las otras capas.
 
 ## Sobre esta aplicación
 
-Esta aplicación realiza el crud de una lista de juegos con API’s; utilizamos Arquitectura Hexagonal, buscando desacoplarnos del framework lo más posible. La carpeta src será ahora el core de la aplicación donde está la carpeta Shared que comparta recurso para toda la aplicación, y la carpeta BoundedContext(aquí podemos agregar todas las entidades) donde está la entidad Games. Desde la capa Infraestructura, usamos modelos con eloquent e implementamos Storage y generador de identificador Uuid.
+Esta aplicación realiza el crud de una lista de juegos con API’s; utilizamos Arquitectura Hexagonal, buscando desacoplarnos del framework lo más posible. La carpeta src será ahora el core de la aplicación donde está la carpeta Shared que comparte recursos para toda la aplicación, y la carpeta BoundedContext(aquí podemos agregar todas las entidades) donde está la entidad Games. Desde la capa Infraestructura, usamos modelos con eloquent e implementamos Storage y generador de identificador Uuid.
 Se crean interfaces para los controladores, y usos para diferentes funciones buscando aplicar el Patrón Repositorio.
 Puedes ver el [frontend hecho Vue con Nuxt](https://github.com/mauroaicode/games-architecture-hexagonal-frontend)
 
