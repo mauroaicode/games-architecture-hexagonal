@@ -40,6 +40,9 @@ $ composer install
 # Llave única de la aplicación
 $ php artisan key:generate
 
+# Llave única de la aplicación
+$ php artisan storage:link
+
 # generar datos semilla, se crean 3 juegos
 $ php artisan migrate:fresh --seed
 
